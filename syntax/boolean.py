@@ -1,5 +1,6 @@
-# Number
 import os.path
+
+# Number
 print(1)  # Integer
 
 # String
@@ -20,6 +21,5 @@ print(2 < 1)  # False
 
 # Membership operator
 print('world' in 'Hello world')  # True
-
 
 print(os.path.exists('boolean2.py'))
