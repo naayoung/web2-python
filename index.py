@@ -2,8 +2,13 @@
 import cgi
 print("Content-Type: text/html")
 print()
+
 form = cgi.FieldStorage()
-pageID = form["id"].value
+if 'id' in form:
+    pageID = form["id"].value
+else:
+    pageID = 'Welcome'
+
 print('''<!DOCTYPE html>
 <html>
   <head>
