@@ -1,19 +1,28 @@
 #!C:\Users\nayoung\AppData\Local\Programs\Python\Python37-32\python.exe
+import sys
+import codecs
 import cgi
+
 print("Content-Type: text/html")
 print()
 
+# stdout의 인코딩을 UTF-8로 강제 변환
+sys.stdout = codecs.getwriter("utf-8")(sys.stdout.detach())
+
 form = cgi.FieldStorage()
+
 if 'id' in form:
     pageID = form["id"].value
+    description = open('data/'+pageID, 'r', encoding='UTF-8').read()
 else:
     pageID = 'Welcome'
+    description = 'Hello, web'
 
 print('''<!DOCTYPE html>
 <html>
   <head>
     <title>NaYoung-Welcome</title>
-    <meta charset="euc-kr" />
+    <meta charset="utf-8" />
   </head>
   <body>
     <h1><a href="index.py">WEB</a></h1>
@@ -23,25 +32,7 @@ print('''<!DOCTYPE html>
       <li><a href="index.py?id=JavaScript">JavaScript</a></li>
     </ol>
     <h2>{title}</h2>
-    <p>
-      Welcome~ My name is NaYoung! This is
-      <a href="https://www.naver.com/">naver</a>.
-    </p>
-    <p>
-      This is my love song~ <br />
-      <iframe
-        width="560"
-        height="315"
-        src="https://youtu.be/52nfjRzIaj8"
-        frameborder="0"
-        allowfullscreen
-      ></iframe>
-    </p>
-    <!--<img src="cookie.jpg" width="100%">-->
-    <img src="cookie.jpg" width="200" />
-    <p style="margin-top:40px;">
-      <strong>Happy <u>NaYoung</u> world</strong>
-    </p>
+    <p>{desc}</p>
   </body>
 </html>
-'''.format(title=pageID))
+'''.format(title=pageID, desc=description))
