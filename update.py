@@ -21,11 +21,9 @@ form = cgi.FieldStorage()
 if 'id' in form:
     pageID = form["id"].value
     description = open('data/'+pageID, 'r', encoding='UTF-8').read()
-    update_link = '<a href="update.py?id={}">update</a>'.format(pageID)
 else:
     pageID = 'Welcome'
     description = 'Hello, web'
-    update_link = ''
 
 print('''<!DOCTYPE html>
 <html>
@@ -39,9 +37,12 @@ print('''<!DOCTYPE html>
       {listStr}
     </ol>
     <a href="create.py">create</a>
-    {update_link}
-    <h2>{title}</h2>
-    <p>{desc}</p>
+    <form action="process_update.py" method="post">
+      <input type="hidden" name="pageID" value="{form_default_title}">
+      <p><input type="text" name="title" placeholder="title" value="{form_default_title}"></p>
+      <p><textarea rows="4" name="desc" placeholder="description">{form_default_description}</textarea></p>
+      <p><input type="submit"></p>
+    </form>
   </body>
 </html>
-'''.format(title=pageID, desc=description, listStr=listStr, update_link=update_link))
+'''.format(title=pageID, desc=description, listStr=listStr, form_default_title=pageID, form_default_description=description))
