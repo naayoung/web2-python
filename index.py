@@ -22,10 +22,17 @@ if 'id' in form:
     pageID = form["id"].value
     description = open('data/'+pageID, 'r', encoding='UTF-8').read()
     update_link = '<a href="update.py?id={}">update</a>'.format(pageID)
+    delete_action = '''
+      <form action="process_delete.py" method="post">
+          <input type="hidden" name="pageID" value="{}">
+          <input type="submit" value="delete">
+      </form>  
+    '''.format(pageID)
 else:
     pageID = 'Welcome'
     description = 'Hello, web'
     update_link = ''
+    delete_action = ''
 
 print('''<!DOCTYPE html>
 <html>
@@ -40,8 +47,9 @@ print('''<!DOCTYPE html>
     </ol>
     <a href="create.py">create</a>
     {update_link}
+    {delete_action}
     <h2>{title}</h2>
     <p>{desc}</p>
   </body>
 </html>
-'''.format(title=pageID, desc=description, listStr=listStr, update_link=update_link))
+'''.format(title=pageID, desc=description, listStr=listStr, update_link=update_link, delete_action=delete_action))
