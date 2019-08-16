@@ -4,11 +4,16 @@ import codecs
 import cgi
 import os
 
-files = os.listdir('data')
-listStr = ''
-for item in files:
-    listStr = listStr + \
-        '<li><a href="index.py?id={name}">{name}</a></li>'.format(name=item)
+
+def getList():
+    files = os.listdir('data')
+    listStr = ''
+    for item in files:
+        listStr = listStr + \
+            '<li><a href="index.py?id={name}">{name}</a></li>'.format(
+                name=item)
+    return listStr
+
 
 print("Content-Type: text/html")
 print()
@@ -52,4 +57,9 @@ print('''<!DOCTYPE html>
     <p>{desc}</p>
   </body>
 </html>
-'''.format(title=pageID, desc=description, listStr=listStr, update_link=update_link, delete_action=delete_action))
+'''.format(
+    title=pageID,
+    desc=description,
+    listStr=getList(),
+    update_link=update_link,
+    delete_action=delete_action))
