@@ -1,0 +1,4 @@
+Cross Site Scripting is XSS
+
+<script>alert('haha')</script>
+<script>location.href="https://opentutorials.org"</script>
